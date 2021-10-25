@@ -220,6 +220,7 @@ config-path() {
 
   local c
   for c in "${CONFIG_FILE}" \
+           "${xdg}/tasker.yaml" \
            "${xdg}/tasker-for-linux/config.yaml" \
            "${PWD}/config.yaml"
   do
