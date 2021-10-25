@@ -1,0 +1,43 @@
+sleep_interval: 1
+debug: true
+logs:
+  level: debug
+  timestamp: true
+
+apps:
+  dolphin:
+    name: "Dolphin"
+    window_title: Dolphin
+    scripts:
+      skip-checks:
+      - runtime
+      start:
+      - notify-send -a tasker.sh "dolphin got bornzzz"
+      stop:
+      - notify-send -a tasker.sh "dolphin died. lol"
+  obs-studio:
+    name: "OBS Studio"
+    process_name: obs
+    scripts:
+      start:
+      - notify-send -a tasker.sh "obs got bornzzz"
+      stop:
+      - notify-send -a tasker.sh "obs died for your sins"
+  firefox:
+    name: "Firefox"
+    process_name: firefox
+    scripts:
+      start:
+      - ./scripts/firefox.sh start
+      - ./scripts/firefox.sh start2
+      - ./scripts/firefox.sh start3
+      stop:
+      - ./scripts/firefox.sh stop
+  zoom:
+    name: Zoom
+    zoom: true
+    scripts:
+      start:
+      - notify-send -a tasker.sh "IN A ZOOM MEETING"
+      stop:
+      - notify-send -a tasker.sh "NO LONGER IN A MEETING"
