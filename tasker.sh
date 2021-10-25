@@ -4,6 +4,26 @@ usage() {
   echo "Usage: $(basename "$0") [--debug] [--timestamp] [--config FILE] [--dry-run]"
 }
 
+check-requirements() {
+  local fail=0
+
+  if ! command -v yq >/dev/null
+  then
+    log_error "yq is not installed!"
+    log_error "$ pacman -S go-yq"
+    fail=1
+  fi
+
+  if ! command -v pgrep >/dev/null
+  then
+    log_error "procps-ng (pgrep, pkill) is not installed!"
+    log_error "$ pacman -S procps-ng"
+    fail=1
+  fi
+
+  return "$fail"
+}
+
 _log() {
   local color="$1"
   shift
@@ -331,7 +351,7 @@ main-loop() {
     done
 
     log_debug "💤 Sleeping for $sleep_interval seconds..."
-    sleep "$sleep_interval"
+    sleep "$sleep_interval" || exit 9
   done
 }
 
@@ -345,6 +365,9 @@ then
 
   DISPLAY="${DISPLAY:-:0}"
   WAYLAND_DISPLAY="${WAYLAND_DISPLAY:-wayland-0}"
+
+  # Check whether all required packages are installed
+  check-requirements || exit "$?"
 
   while [[ -n "$*" ]]
   do
