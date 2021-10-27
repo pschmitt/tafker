@@ -21,6 +21,13 @@ check-requirements() {
     fail=1
   fi
 
+  if ! command -v xwininfo >/dev/null
+  then
+    log_error "xwininfo is not installed!"
+    log_error "$ pacman -S xorg-xwininfo"
+    fail=1
+  fi
+
   return "$fail"
 }
 
@@ -63,7 +70,7 @@ in-zoom-meeting() {
   pid="$(is-running 'zoom zoommtg://')"
 
   # There should be a window named "Zoom Meeting"
-  if [[ -n "$pid" ]] && wmctrl -l | grep -qi "zoom meeting"
+  if [[ -n "$pid" ]] && xwininfo -tree -root | grep -i "Zoom Meeting"
   then
     echo "$pid"
     return 0
@@ -364,6 +371,7 @@ then
   SLEEP_INTERVAL="${SLEEP_INTERVAL}"
 
   DISPLAY="${DISPLAY:-:0}"
+  XAUTHORITY="${XAUTHORITY:-${HOME}/.Xauthority}"
   WAYLAND_DISPLAY="${WAYLAND_DISPLAY:-wayland-0}"
 
   # Check whether all required packages are installed
