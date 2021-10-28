@@ -4,6 +4,12 @@ logs:
   level: debug
   timestamp: true
 
+autostart:
+  deckboard:
+    cmd: ${HOME}/Applications/Deckboard-*.AppImage
+    process_name: deckboard
+    yolo: true
+
 apps:
   dolphin:
     name: "Dolphin"
@@ -15,6 +21,18 @@ apps:
       - notify-send -a tasker.sh "dolphin got bornzzz"
       stop:
       - notify-send -a tasker.sh "dolphin died. lol"
+  deckboard:
+    name: "Deckboard"
+    process_name: deckboard
+    skip-checks:
+      - unknown-state
+      - runtime
+    scripts:
+      start:
+      - notify-send -a tasker.sh "Deckboard started"
+      - sleep 10 && wmctrl -c deckboard
+      stop:
+      - notify-send -a tasker.sh "Deckboard stopped"
   obs-studio:
     name: "OBS Studio"
     process_name: obs

@@ -157,24 +157,31 @@ should-trigger-script() {
   local pid="$2"
   local previous_state="$3"
 
-  if [[ -z "$previous_state" ]]
+  local -a skip_checks
+  mapfile -t skip_checks < <(config-get ".apps.${app}.skip-checks")
+
+  if ! array-contains "unknown-state" "${skip_checks[@]}"
   then
-    log_debug "🤷 Not triggering start script since previous state is unknown."
-    return 1
+    if [[ -z "$previous_state" ]]
+    then
+      log_debug "🤷 Not triggering start script since previous state is unknown."
+      return 1
+    fi
+  fi
+
+  if ! array-contains "runtime" "${skip_checks[@]}"
+  then
+    if ! was-started-after-us "$pid"
+    then
+      log_debug "✋ Not triggering start script since the app was running when we started"
+      return 1
+    fi
   fi
 
   if [[ "$previous_state" == "running" ]]
   then
     log_debug "✋ Not triggering start script since we already did this once"
     return 1
-  fi
-
-  local -a skip_checks
-  mapfile -t skip_checks < <(config-get ".apps.${app}.scripts.skip-checks")
-
-  if ! array-contains "runtime" "${skip_checks[@]}"
-  then
-    was-started-after-us "$pid"
   fi
 }
 
@@ -304,6 +311,39 @@ config-list-apps() {
   config-get '.apps | keys'
 }
 
+autostart-apps() {
+  local autostart_cmds
+  local app
+  local cmd
+  local pname
+  local yolo
+
+  mapfile -t autostart_cmds < <(config-get '.autostart | keys')
+
+  log_info "Autostarting apps..."
+
+  for app in "${autostart_cmds[@]}"
+  do
+    if config-get-bool ".autostart.${app}.yolo" >/dev/null
+    then
+      pname=$(config-get ".autostart.${app}.process_name" "$app")
+
+      log_debug "Checking if $pname is running"
+      if is-running "$pname"
+      then
+        log_info "Skipping launch of $app since it is already running"
+        continue
+      fi
+    fi
+
+    cmd=$(config-get ".autostart.${app}.cmd")
+
+    log_info "Starting $cmd"
+    nohup sh -c "${cmd}" >/dev/null 2>&1 &
+    # disown %1
+  done
+}
+
 main-loop() {
   local -a apps
   local -A app_states
@@ -419,5 +459,6 @@ then
   done
 
   trap 'log_info "🚨 USR1 caught. Restarting."; main-loop' USR1
+  autostart-apps
   main-loop
 fi
