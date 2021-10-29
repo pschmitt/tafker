@@ -254,8 +254,8 @@ config-path() {
 
   local c
   for c in "${CONFIG_FILE}" \
-           "${xdg}/tasker.yaml" \
-           "${xdg}/tasker-for-linux/config.yaml" \
+           "${xdg}/tafker.yaml" \
+           "${xdg}/tafker/config.yaml" \
            "${PWD}/config.yaml"
   do
     if [[ -r "$c" ]]
