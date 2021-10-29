@@ -1,5 +1,7 @@
 # tafker.sh
 
+![tafker.jpg](./tafker.jpg)
+
 ## Dependencies
 
 - [procps-ng](https://gitlab.com/procps-ng/procps)
