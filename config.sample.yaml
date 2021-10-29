@@ -18,9 +18,9 @@ apps:
       skip-checks:
       - runtime
       start:
-      - notify-send -a tasker.sh "dolphin got bornzzz"
+      - notify-send -a tafker.sh "dolphin got bornzzz"
       stop:
-      - notify-send -a tasker.sh "dolphin died. lol"
+      - notify-send -a tafker.sh "dolphin died. lol"
   deckboard:
     name: "Deckboard"
     process_name: deckboard
@@ -29,18 +29,18 @@ apps:
       - runtime
     scripts:
       start:
-      - notify-send -a tasker.sh "Deckboard started"
+      - notify-send -a tafker.sh "Deckboard started"
       - sleep 10 && wmctrl -c deckboard
       stop:
-      - notify-send -a tasker.sh "Deckboard stopped"
+      - notify-send -a tafker.sh "Deckboard stopped"
   obs-studio:
     name: "OBS Studio"
     process_name: obs
     scripts:
       start:
-      - notify-send -a tasker.sh "obs got bornzzz"
+      - notify-send -a tafker.sh "obs got bornzzz"
       stop:
-      - notify-send -a tasker.sh "obs died for your sins"
+      - notify-send -a tafker.sh "obs died for your sins"
   firefox:
     name: "Firefox"
     process_name: firefox
@@ -56,6 +56,6 @@ apps:
     zoom: true
     scripts:
       start:
-      - notify-send -a tasker.sh "IN A ZOOM MEETING"
+      - notify-send -a tafker.sh "IN A ZOOM MEETING"
       stop:
-      - notify-send -a tasker.sh "NO LONGER IN A MEETING"
+      - notify-send -a tafker.sh "NO LONGER IN A MEETING"
