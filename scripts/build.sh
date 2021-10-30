@@ -16,7 +16,7 @@ build_pyinstaller() {
     -e STATICX=1 \
     -e STATICX_ARGS="--strip" \
     "pschmitt/pyinstaller:${python_v}" \
-    "$@"
+    tafker/main.py
 }
 
 if [[ "${BASH_SOURCE[0]}" == "${0}" ]]
