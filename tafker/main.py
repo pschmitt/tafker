@@ -17,9 +17,10 @@ from rich.console import Console
 from rich.logging import RichHandler
 from xdg import xdg_config_home
 
+
+import tafker.shell as shl
 from tafker.logger import LOGGER
 from tafker.proc import pgrep
-from tafker.shell import asyncio_run_commands, kill_running_commands
 from tafker.snowflakes import zoom_meeting_status
 from tafker.win import find_windows
 
@@ -64,16 +65,16 @@ async def check_application(name: str, appconfig: dict):
         if previous_state and previous_state != "running":
             LOGGER.warning(f"Starting start commands for {name}")
             cmds = appconfig.get("scripts", {}).get("start", [])
-            kill_running_commands(name)
-            await asyncio_run_commands(cmds, metadata=metadata)
+            shl.kill_running_commands(name)
+            await shl.asyncio_run_commands(cmds, metadata=metadata)
         states[name] = "running"
     else:
         LOGGER.info(f"🛑 {name} is *not* running (Previously: {previous_state})")
         if previous_state and previous_state != "stopped":
             LOGGER.warning(f"Starting stop commands for {name}")
             cmds = appconfig.get("scripts", {}).get("stop", [])
-            kill_running_commands(name)
-            await asyncio_run_commands(cmds, metadata=metadata)
+            shl.kill_running_commands(name)
+            await shl.asyncio_run_commands(cmds, metadata=metadata)
         states[name] = "stopped"
 
     APP_STATES.set(states)
@@ -86,11 +87,15 @@ async def process_apps(config: dict):
     async with anyio.create_task_group() as tg:
         for app in apps:
             tg.start_soon(check_application, app, apps[app])
+        # Check for long running commands
+        tg.start_soon(
+            shl.kill_long_running_commands, config.get("max_script_runtime", 30)
+        )
 
 
 def watch_loop(config: dict):
     APP_STATES.set({})
-    tick_interval = config.get("interval", 1)
+    tick_interval = config.get("sleep_interval", 1)
     try:
         while True:
             try:

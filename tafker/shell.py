@@ -2,6 +2,7 @@
 
 import asyncio
 import subprocess
+import time
 from typing import Optional
 
 
@@ -86,3 +87,11 @@ def kill_running_commands(name: str):
     for proc in pgrep(f"TAFKER_NAME={name};", fetch_all=True):
         LOGGER.debug(f"🔪 Killing script for {name}: {' '.join(proc.cmdline())}")
         proc.kill()
+
+
+async def kill_long_running_commands(max_age: int = 30):
+    now = time.time()
+    for proc in pgrep(f"TAFKER=1;", fetch_all=True):
+        if now - proc.create_time() > max_age:
+            LOGGER.warning(f"⏰ [TIMEOUT] Killing script: {' '.join(proc.cmdline())}")
+            proc.kill()
