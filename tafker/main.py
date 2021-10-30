@@ -68,19 +68,19 @@ async def check_application(name: str, appconfig: dict):
 
     metadata = {"name": name}
     if proc:
-        LOGGER.info(f"🆙 {name} is running (Previously: {previous_state})")
-        LOGGER.debug(f"🆙 {' '.join(proc.cmdline())} [PID: {proc.pid}]")
+        LOGGER.info(f"⬆️ {name} is running (Previously: {previous_state})")
+        LOGGER.debug(f"⬆️ {' '.join(proc.cmdline())} [PID: {proc.pid}]")
 
         if previous_state and previous_state != "running":
-            LOGGER.warning(f"Starting start commands for {name}")
+            LOGGER.warning(f"🔆 Starting start commands for {name}")
             cmds = appconfig.get("scripts", {}).get("start", [])
             shl.kill_running_commands(name)
             await shl.asyncio_run_commands(cmds, metadata=metadata)
         states[name] = "running"
     else:
-        LOGGER.info(f"🛑 {name} is *not* running (Previously: {previous_state})")
+        LOGGER.info(f"⬇️ {name} is *not* running (Previously: {previous_state})")
         if previous_state and previous_state != "stopped":
-            LOGGER.warning(f"Starting stop commands for {name}")
+            LOGGER.warning(f"🌚 Starting stop commands for {name}")
             cmds = appconfig.get("scripts", {}).get("stop", [])
             shl.kill_running_commands(name)
             await shl.asyncio_run_commands(cmds, metadata=metadata)
