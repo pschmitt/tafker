@@ -6,12 +6,11 @@ import datetime
 import logging
 import pathlib
 import sys
+
 from contextvars import ContextVar
-from posixpath import join
 from time import sleep
 
 import anyio
-import psutil
 import yaml
 
 from rich.console import Console
@@ -20,6 +19,7 @@ from xdg import xdg_config_home
 
 from tafker.logger import LOGGER
 from tafker.proc import pgrep
+from tafker.shell import asyncio_run_commands
 from tafker.snowflakes import zoom_meeting_status
 
 console = Console()
@@ -41,25 +41,6 @@ def parse_args():
     return parser.parse_args()
 
 
-async def run_stuff(cmds: list, timeout: int = 1):
-    if not cmds:
-        LOGGER.debug(f"Nothing to do here")
-        return
-
-    # async with anyio.create_task_group() as tg:
-    #     for cmd in cmds:
-    #         with anyio.move_on_after(timeout) as scope:
-    #             tg.start_soon(await anyio.run_process(cmd))
-    #         if scope.cancel_called:
-    #             LOGGER.warning(f"Timeout reached")
-
-    for cmd in cmds:
-        try:
-            await anyio.run_process(cmd)
-        except Exception as exc:
-            LOGGER.error(f"Something went wrong while running {cmd}: {exc}")
-
-
 async def check_application(name: str, appconfig: dict):
     if appconfig.get("zoom", False):
         zoom_status = zoom_meeting_status()
@@ -71,19 +52,19 @@ async def check_application(name: str, appconfig: dict):
     previous_state = states.get(name)
     if proc:
         LOGGER.info(f"🆙 {name} is running (Previously: {previous_state})")
-        LOGGER.debug(f"🆙 {proc.cmdline()} [PID: {proc.pid}]")
+        LOGGER.debug(f"🆙 {' '.join(proc.cmdline())} [PID: {proc.pid}]")
 
         if previous_state and previous_state != "running":
             LOGGER.warning(f"Starting start commands for {name}")
             cmds = appconfig.get("scripts", {}).get("start", [])
-            await run_stuff(cmds)
+            await asyncio_run_commands(cmds)
         states[name] = "running"
     else:
         LOGGER.info(f"🛑 {name} is *not* running (Previously: {previous_state})")
         if previous_state and previous_state != "stopped":
             LOGGER.warning(f"Starting stop commands for {name}")
             cmds = appconfig.get("scripts", {}).get("stop", [])
-            await run_stuff(cmds)
+            await asyncio_run_commands(cmds)
         states[name] = "stopped"
 
     APP_STATES.set(states)
@@ -119,7 +100,7 @@ def watch_loop(config: dict):
                     raise exc
                 console.print_exception(show_locals=True)
     except KeyboardInterrupt:
-        LOGGER.debug("Caught KeyboardInterrupt")
+        LOGGER.debug("💀 Caught KeyboardInterrupt")
         return 130
 
 
