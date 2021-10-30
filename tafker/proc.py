@@ -4,6 +4,7 @@ import re
 
 import psutil
 
+from tafker.const import TAFKER_CMD_PREFIX
 from tafker.logger import LOGGER
 
 
@@ -15,7 +16,7 @@ def pgrep(name, ignore_case=True):
         try:
             cmdline = " ".join(proc.cmdline())
             # Skip processes we created ourselves
-            if "TAFKER_PY=1;" in cmdline:
+            if TAFKER_CMD_PREFIX in cmdline:
                 continue
             if re.search(regex, cmdline):
                 return proc

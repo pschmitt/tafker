@@ -1,6 +1,7 @@
 import tafker
 
 __all__ = [
+    "tafker.const",
     "tafker.proc",
     "tafker.logger",
     "tafker.shell",

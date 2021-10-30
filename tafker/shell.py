@@ -8,6 +8,7 @@ from typing import Optional
 import anyio
 from anyio import to_process, to_thread
 
+from tafker.const import TAFKER_CMD_PREFIX
 from tafker.logger import LOGGER
 
 
@@ -38,7 +39,7 @@ async def asyncio_run_commands(cmds: list):
     procs = []
     for cmd in cmds:
         proc = await asyncio.create_subprocess_shell(
-            f"TAFKER_PY=1; {cmd}",
+            f"{TAFKER_CMD_PREFIX} {cmd}",
             stdin=asyncio.subprocess.PIPE,
             stdout=asyncio.subprocess.PIPE,
         )
