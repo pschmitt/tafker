@@ -5,13 +5,12 @@ import subprocess
 import time
 from typing import Optional
 
-
 import anyio
 from anyio import to_process, to_thread
 
 from tafker.const import TAFKER_CMD_PREFIX
-from tafker.proc import pgrep
 from tafker.logger import LOGGER
+from tafker.proc import pgrep
 
 
 def run_commands(cmds: list, timeout: Optional[int] = None):

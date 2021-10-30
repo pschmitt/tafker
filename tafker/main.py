@@ -7,18 +7,15 @@ import logging
 import os
 import pathlib
 import sys
-
 from contextvars import ContextVar
 from time import sleep
 
 import anyio
+import setproctitle
 import yaml
-
 from rich.console import Console
 from rich.logging import RichHandler
-import setproctitle
 from xdg import xdg_config_home
-
 
 import tafker.shell as shl
 from tafker.logger import LOGGER
@@ -33,7 +30,11 @@ APP_STATES = ContextVar("STATE")
 def parse_args():
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        "-d", "--debug", action="store_true", default=False, help="DEBUG logging"
+        "-d",
+        "--debug",
+        action="store_true",
+        default=False,
+        help="DEBUG logging",
     )
     parser.add_argument(
         "-c",
@@ -78,7 +79,9 @@ async def check_application(name: str, appconfig: dict):
             await shl.asyncio_run_commands(cmds, metadata=metadata)
         states[name] = "running"
     else:
-        LOGGER.info(f"⬇️ {name} is *not* running (Previously: {previous_state})")
+        LOGGER.info(
+            f"⬇️ {name} is *not* running (Previously: {previous_state})"
+        )
         if previous_state and previous_state != "stopped":
             LOGGER.warning(f"🌚 Starting stop commands for {name}")
             cmds = appconfig.get("scripts", {}).get("stop", [])
@@ -109,7 +112,9 @@ def watch_loop(config: dict):
         while True:
             try:
                 tick_start = datetime.datetime.now()
-                anyio.run(process_apps, config, backend_options={"use_uvloop": True})
+                anyio.run(
+                    process_apps, config, backend_options={"use_uvloop": True}
+                )
                 delta = datetime.datetime.now() - tick_start
                 # Don't update too fast!
                 if delta.seconds < tick_interval:
@@ -168,7 +173,9 @@ def main():
     if not args.allow_multiple_instances:
         tafkers = pgrep("^tafker ?.*$", fetch_all=True)
         if tafkers and len(tafkers) > 1:
-            first_tafker = tafkers[0] if tafkers[0].pid != os.getpid() else tafkers[1]
+            first_tafker = (
+                tafkers[0] if tafkers[0].pid != os.getpid() else tafkers[1]
+            )
             pid = first_tafker.pid
             cmdline = " ".join(first_tafker.cmdline())
             LOGGER.critical(

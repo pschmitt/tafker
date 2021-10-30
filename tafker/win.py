@@ -3,9 +3,9 @@ import re
 from typing import Optional
 
 from ewmh import EWMH
+from Xlib.display import Display
 from Xlib.error import BadWindow
 from Xlib.xobject.drawable import Window
-from Xlib.display import Display
 
 from tafker.logger import LOGGER
 
@@ -48,11 +48,13 @@ def find_windows(
 ) -> Optional[Window]:
     LOGGER.debug(f"Searching for window named {name} (class: {cls})")
     regex_name = re.compile(
-        name if not exact_match else f"^{name}$", re.IGNORECASE if ignore_case else 0
+        name if not exact_match else f"^{name}$",
+        re.IGNORECASE if ignore_case else 0,
     )
     regex_cls = (
         re.compile(
-            cls if not exact_match else f"^{cls}$", re.IGNORECASE if ignore_case else 0
+            cls if not exact_match else f"^{cls}$",
+            re.IGNORECASE if ignore_case else 0,
         )
         if cls
         else None
