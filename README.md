@@ -1,6 +1,12 @@
-# tafker.sh
+# tafker
 
 ![tafker.jpg](./tafker.jpg)
+
+## tafker.py
+
+TODO.
+
+## tafker.sh
 
 ## Dependencies
 
