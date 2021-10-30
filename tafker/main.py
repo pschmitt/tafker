@@ -19,7 +19,7 @@ from xdg import xdg_config_home
 
 from tafker.logger import LOGGER
 from tafker.proc import pgrep
-from tafker.shell import asyncio_run_commands
+from tafker.shell import asyncio_run_commands, kill_running_commands
 from tafker.snowflakes import zoom_meeting_status
 from tafker.win import find_windows
 
@@ -55,6 +55,8 @@ async def check_application(name: str, appconfig: dict):
 
     states = APP_STATES.get()
     previous_state = states.get(name)
+
+    metadata = {"name": name}
     if proc:
         LOGGER.info(f"🆙 {name} is running (Previously: {previous_state})")
         LOGGER.debug(f"🆙 {' '.join(proc.cmdline())} [PID: {proc.pid}]")
@@ -62,14 +64,16 @@ async def check_application(name: str, appconfig: dict):
         if previous_state and previous_state != "running":
             LOGGER.warning(f"Starting start commands for {name}")
             cmds = appconfig.get("scripts", {}).get("start", [])
-            await asyncio_run_commands(cmds)
+            kill_running_commands(name)
+            await asyncio_run_commands(cmds, metadata=metadata)
         states[name] = "running"
     else:
         LOGGER.info(f"🛑 {name} is *not* running (Previously: {previous_state})")
         if previous_state and previous_state != "stopped":
             LOGGER.warning(f"Starting stop commands for {name}")
             cmds = appconfig.get("scripts", {}).get("stop", [])
-            await asyncio_run_commands(cmds)
+            kill_running_commands(name)
+            await asyncio_run_commands(cmds, metadata=metadata)
         states[name] = "stopped"
 
     APP_STATES.set(states)

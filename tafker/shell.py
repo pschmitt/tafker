@@ -9,6 +9,7 @@ import anyio
 from anyio import to_process, to_thread
 
 from tafker.const import TAFKER_CMD_PREFIX
+from tafker.proc import pgrep
 from tafker.logger import LOGGER
 
 
@@ -35,11 +36,15 @@ async def async_run_commands(cmds: list):
     return res
 
 
-async def asyncio_run_commands(cmds: list):
+async def asyncio_run_commands(cmds: list, metadata: Optional[dict] = None):
     procs = []
+    prefix = TAFKER_CMD_PREFIX
+    if metadata:
+        for key, val in metadata.items():
+            prefix += f" TAFKER_{key.upper()}={val};"
     for cmd in cmds:
         proc = await asyncio.create_subprocess_shell(
-            f"{TAFKER_CMD_PREFIX} {cmd}",
+            f"{prefix} {cmd}",
             stdin=asyncio.subprocess.PIPE,
             stdout=asyncio.subprocess.PIPE,
         )
@@ -75,3 +80,9 @@ async def anyio_run_commands(cmds: list, timeout: int = 1):
     #     await to_process.run_sync(run_commands, cmds)
     # except Exception as exc:
     #     LOGGER.error(f"Something went wrong while running {cmds}: {exc}")
+
+
+def kill_running_commands(name: str):
+    for proc in pgrep(f"TAFKER_NAME={name};", fetch_all=True):
+        LOGGER.debug(f"🔪 Killing script for {name}: {' '.join(proc.cmdline())}")
+        proc.kill()
