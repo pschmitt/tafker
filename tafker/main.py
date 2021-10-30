@@ -4,6 +4,7 @@
 import argparse
 import datetime
 import logging
+import os
 import pathlib
 import sys
 
@@ -40,6 +41,13 @@ def parse_args():
         type=lambda p: pathlib.Path(p).absolute(),
         default=pathlib.Path.joinpath(xdg_config_home(), "tafker.yaml"),
         help="Path to the config file",
+    )
+    parser.add_argument(
+        "-m",
+        "--allow-multiple-instances",
+        action="store_true",
+        default=False,
+        help="Whether to allow more than a single instance of tafker",
     )
     return parser.parse_args()
 
@@ -156,6 +164,19 @@ def main():
     )
 
     LOGGER.debug(f"Args: {args}")
+
+    if not args.allow_multiple_instances:
+        tafkers = pgrep("^tafker ?.*$", fetch_all=True)
+        if tafkers and len(tafkers) > 1:
+            first_tafker = tafkers[0] if tafkers[0].pid != os.getpid() else tafkers[1]
+            pid = first_tafker.pid
+            cmdline = " ".join(first_tafker.cmdline())
+            LOGGER.critical(
+                f"tafker is already running: {cmdline} [PID: {pid}].\n"
+                "Restart with --allow-multiple-instances to force startup"
+            )
+            sys.exit(9)
+
     config = parse_config(args.config)
     return watch_loop(config)
 
