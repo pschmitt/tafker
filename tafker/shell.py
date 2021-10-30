@@ -92,6 +92,10 @@ def kill_running_commands(name: str):
 async def kill_long_running_commands(max_age: int = 30):
     now = time.time()
     for proc in pgrep(f"TAFKER=1;", fetch_all=True):
-        if now - proc.create_time() > max_age:
-            LOGGER.warning(f"⏰ [TIMEOUT] Killing script: {' '.join(proc.cmdline())}")
+        proc_age = now - proc.create_time()
+        if proc_age > max_age:
+            LOGGER.warning(
+                f"⏰ Timed out after {proc_age}s! "
+                f"Killing script: {' '.join(proc.cmdline())}"
+            )
             proc.kill()
