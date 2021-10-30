@@ -21,6 +21,7 @@ from tafker.logger import LOGGER
 from tafker.proc import pgrep
 from tafker.shell import asyncio_run_commands
 from tafker.snowflakes import zoom_meeting_status
+from tafker.win import find_windows
 
 console = Console()
 APP_STATES = ContextVar("STATE")
@@ -47,6 +48,10 @@ async def check_application(name: str, appconfig: dict):
         proc = zoom_status[0] if zoom_status else None
     else:
         proc = pgrep(appconfig.get("process_name", name))
+        win_title = appconfig.get("window_title")
+        if win_title and not find_windows(win_title, only_visible=False):
+            # If window title is set assume the program is not running
+            proc = None
 
     states = APP_STATES.get()
     previous_state = states.get(name)
