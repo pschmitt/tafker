@@ -1,8 +1,16 @@
 #!/usr/bin/env bash
 
 build_pyoxidizer() {
-  # pyoxidizer build --target-triple x86_64-unknown-linux-musl
-  pyoxidizer build
+  cd "$(git rev-parse --show-toplevel)" || exit 9
+
+  case "$1" in
+    --static|static)
+      pyoxidizer build --target-triple x86_64-unknown-linux-musl
+      ;;
+    *)
+      pyoxidizer build
+      ;;
+  esac
 }
 
 build_pyinstaller() {
@@ -29,7 +37,7 @@ then
       build_pyinstaller
       ;;
     *)
-      build_pyoxidizer
+      build_pyoxidizer "$@"
       ;;
   esac
 fi
