@@ -6,7 +6,6 @@ from typing import Optional
 
 
 import anyio
-import trio
 from anyio import to_process, to_thread
 
 from tafker.logger import LOGGER
@@ -75,8 +74,3 @@ async def anyio_run_commands(cmds: list, timeout: int = 1):
     #     await to_process.run_sync(run_commands, cmds)
     # except Exception as exc:
     #     LOGGER.error(f"Something went wrong while running {cmds}: {exc}")
-
-
-async def trio_run_commands(cmds: list, timeout: int = 5):
-    for cmd in cmds:
-        trio.open_process(cmd, shell=True)
