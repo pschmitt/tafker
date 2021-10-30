@@ -14,6 +14,8 @@ anyio = "^3.3.4"
 uvloop = "^0.16.0"
 PyYAML = "^6.0"
 xdg = "^5.1.1"
+python-xlib = "^0.31"
+ewmh = "^0.1.6"
 
 [tool.poetry.dev-dependencies]
 ipython = "^7.28.0"

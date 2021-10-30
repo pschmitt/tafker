@@ -13,12 +13,14 @@ from time import sleep
 import anyio
 import psutil
 import yaml
+
 from rich.console import Console
 from rich.logging import RichHandler
 from xdg import xdg_config_home
 
 from tafker.logger import LOGGER
 from tafker.proc import pgrep
+from tafker.snowflakes import zoom_meeting_status
 
 console = Console()
 APP_STATES = ContextVar("STATE")
@@ -39,25 +41,49 @@ def parse_args():
     return parser.parse_args()
 
 
+async def run_stuff(cmds: list, timeout: int = 1):
+    if not cmds:
+        LOGGER.debug(f"Nothing to do here")
+        return
+
+    # async with anyio.create_task_group() as tg:
+    #     for cmd in cmds:
+    #         with anyio.move_on_after(timeout) as scope:
+    #             tg.start_soon(await anyio.run_process(cmd))
+    #         if scope.cancel_called:
+    #             LOGGER.warning(f"Timeout reached")
+
+    for cmd in cmds:
+        try:
+            await anyio.run_process(cmd)
+        except Exception as exc:
+            LOGGER.error(f"Something went wrong while running {cmd}: {exc}")
+
+
 async def check_application(name: str, appconfig: dict):
-    proc = pgrep(appconfig.get("process_name", name))
+    if appconfig.get("zoom", False):
+        zoom_status = zoom_meeting_status()
+        proc = zoom_status[0] if zoom_status else None
+    else:
+        proc = pgrep(appconfig.get("process_name", name))
+
     states = APP_STATES.get()
     previous_state = states.get(name)
     if proc:
-        LOGGER.info(f"🆙 {name} is running (Previous state: previous_state)")
+        LOGGER.info(f"🆙 {name} is running (Previously: {previous_state})")
         LOGGER.debug(f"🆙 {proc.cmdline()} [PID: {proc.pid}]")
 
         if previous_state and previous_state != "running":
             LOGGER.warning(f"Starting start commands for {name}")
-            for cmd in appconfig.get("scripts", {}).get("start", []):
-                await anyio.run_process(cmd)
+            cmds = appconfig.get("scripts", {}).get("start", [])
+            await run_stuff(cmds)
         states[name] = "running"
     else:
-        LOGGER.info(f"🛑 {name} is *not* running (Previous state: {previous_state})")
+        LOGGER.info(f"🛑 {name} is *not* running (Previously: {previous_state})")
         if previous_state and previous_state != "stopped":
             LOGGER.warning(f"Starting stop commands for {name}")
-            for cmd in appconfig.get("scripts", {}).get("stop", []):
-                await anyio.run_process(cmd)
+            cmds = appconfig.get("scripts", {}).get("stop", [])
+            await run_stuff(cmds)
         states[name] = "stopped"
 
     APP_STATES.set(states)
