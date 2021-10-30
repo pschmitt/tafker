@@ -15,6 +15,7 @@ import yaml
 
 from rich.console import Console
 from rich.logging import RichHandler
+import setproctitle
 from xdg import xdg_config_home
 
 
@@ -143,6 +144,8 @@ def parse_config(path: str = None):
 
 
 def main():
+    setproctitle.setproctitle(f"tafker {' '.join(sys.argv[1:])}")
+
     args = parse_args()
 
     logging.basicConfig(
