@@ -25,7 +25,7 @@ isort = "^5.9.3"
 pyoxidizer = "^0.18.0"
 
 [tool.poetry.scripts]
-tafker = "tafker.main:main"
+tafker = "tafker.tafker:main"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]

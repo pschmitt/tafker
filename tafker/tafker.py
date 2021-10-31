@@ -186,8 +186,3 @@ def main():
 
     config = parse_config(args.config)
     return watch_loop(config)
-
-
-if __name__ == "__main__":
-    rc = main()
-    sys.exit(rc if isinstance(rc, int) else 9)
