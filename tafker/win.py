@@ -33,8 +33,8 @@ def check_window(
         wm_name = window.get_wm_name()
         if not wm_name:
             return False
-        return True if re.search(regex_name, wm_name) else False
-    except BadWindow as exc:
+        return re.search(regex_name, wm_name) is not None
+    except BadWindow:
         # Some windows are bad. Should be safe to ignore™
         return False
 

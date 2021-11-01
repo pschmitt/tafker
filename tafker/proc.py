@@ -28,7 +28,7 @@ def pgrep(
                     res.append(proc)
                 else:
                     return proc
-        except psutil.NoSuchProcess as exc:
+        except psutil.NoSuchProcess:
             # should be safe to ignore.
             continue
 
