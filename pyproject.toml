@@ -23,7 +23,7 @@ ipython = "^7.29.0"
 black = "^21.11b1"
 isort = "^5.10.1"
 pyoxidizer = "^0.18.0"
-pylint = "^2.11.1"
+pylint = "^2.12.1"
 
 [tool.poetry.scripts]
 tafker = "tafker.tafker:main"
