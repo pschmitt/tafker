@@ -378,7 +378,7 @@ python-versions = "*"
 
 [[package]]
 name = "rich"
-version = "10.14.0"
+version = "10.15.0"
 description = "Render rich text, tables, progress bars, syntax highlighting, markdown and more to the terminal"
 category = "main"
 optional = false
@@ -494,7 +494,7 @@ python-versions = ">=3.6,<4.0"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.9"
-content-hash = "01e6f784be175cf9cbf854352a10f48c803f5a11cf64f969c418491eb0537eb1"
+content-hash = "d6f9a6032488de9362e5afb9ff3c486d438d2ed4f31d835c94b9da0c1b26b25b"
 
 [metadata.files]
 anyio = [
@@ -745,8 +745,8 @@ regex = [
     {file = "regex-2021.10.23.tar.gz", hash = "sha256:f3f9a91d3cc5e5b0ddf1043c0ae5fa4852f18a1c0050318baf5fc7930ecc1f9c"},
 ]
 rich = [
-    {file = "rich-10.14.0-py3-none-any.whl", hash = "sha256:ab9cbfd7a3802d8c6f0fa91e974630e2a69447972dcbb9dfe9b01016dd95e38e"},
-    {file = "rich-10.14.0.tar.gz", hash = "sha256:8bfe4546d56b4131298d3a9e571a0742de342f1593770bd0d4707299f772a0af"},
+    {file = "rich-10.15.0-py3-none-any.whl", hash = "sha256:11516740a10dddead0c782dc11fdde552b19fd0614dbbba8f78ea7602d940720"},
+    {file = "rich-10.15.0.tar.gz", hash = "sha256:3f7b0851e097ae90e43216375db413c2f910a0f310705614bce1a2ae43c8264e"},
 ]
 setproctitle = [
     {file = "setproctitle-1.2.2-cp36-cp36m-manylinux1_i686.whl", hash = "sha256:9106bcbacae534b6f82955b176723f1b2ca6514518aab44dffec05a583f8dca8"},
