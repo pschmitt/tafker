@@ -7,7 +7,7 @@ license = "GPL-3"
 
 [tool.poetry.dependencies]
 python = "^3.9"
-rich = "^10.16.1"
+rich = "^10.16.2"
 psutil = "^5.9.0"
 asyncclick = "^8.0.1"
 anyio = "^3.4.0"
