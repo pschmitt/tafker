@@ -19,7 +19,7 @@ ewmh = "^0.1.6"
 setproctitle = "^1.2.2"
 
 [tool.poetry.dev-dependencies]
-ipython = "^7.30.1"
+ipython = "^7.31.0"
 black = "^21.12b0"
 isort = "^5.10.1"
 pyoxidizer = "^0.18.0"
