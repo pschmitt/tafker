@@ -20,7 +20,7 @@ setproctitle = "^1.2.2"
 
 [tool.poetry.dev-dependencies]
 ipython = "^8.0.1"
-black = "^21.12b0"
+black = "^22.1"
 isort = "^5.10.1"
 pyoxidizer = "^0.18.0"
 pylint = "^2.12.2"
