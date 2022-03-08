@@ -22,7 +22,7 @@ setproctitle = "^1.2.2"
 ipython = "^8.1.1"
 black = "^22.1"
 isort = "^5.10.1"
-pyoxidizer = "^0.18.0"
+pyoxidizer = "^0.20.0"
 pylint = "^2.12.2"
 
 [tool.poetry.scripts]
