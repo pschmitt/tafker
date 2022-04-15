@@ -16,7 +16,7 @@ PyYAML = "^6.0"
 xdg = "^5.1.1"
 python-xlib = "^0.31"
 ewmh = "^0.1.6"
-setproctitle = "^1.2.2"
+setproctitle = "^1.2.3"
 
 [tool.poetry.dev-dependencies]
 ipython = "^8.2.0"
