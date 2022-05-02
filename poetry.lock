@@ -169,7 +169,7 @@ python-versions = ">=3.5"
 
 [[package]]
 name = "ipython"
-version = "8.2.0"
+version = "8.3.0"
 description = "IPython: Productive Interactive Computing"
 category = "dev"
 optional = false
@@ -539,7 +539,7 @@ python-versions = ">=3.6,<4.0"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.9"
-content-hash = "92c63cc9a4de24cde08828e7cbdfa040d7202681a885096349789d842adcb1d9"
+content-hash = "094fb755c42d994d70a5566205caf0d820321ce59ac6b68723e30122a7101ab0"
 
 [metadata.files]
 anyio = [
@@ -622,8 +622,8 @@ idna = [
     {file = "idna-3.3.tar.gz", hash = "sha256:9d643ff0a55b762d5cdb124b8eaa99c66322e2157b69160bc32796e824360e6d"},
 ]
 ipython = [
-    {file = "ipython-8.2.0-py3-none-any.whl", hash = "sha256:1b672bfd7a48d87ab203d9af8727a3b0174a4566b4091e9447c22fb63ea32857"},
-    {file = "ipython-8.2.0.tar.gz", hash = "sha256:70e5eb132cac594a34b5f799bd252589009905f05104728aea6a403ec2519dc1"},
+    {file = "ipython-8.3.0-py3-none-any.whl", hash = "sha256:341456643a764c28f670409bbd5d2518f9b82c013441084ff2c2fc999698f83b"},
+    {file = "ipython-8.3.0.tar.gz", hash = "sha256:807ae3cf43b84693c9272f70368440a9a7eaa2e7e6882dad943c32fbf7e51402"},
 ]
 isort = [
     {file = "isort-5.10.1-py3-none-any.whl", hash = "sha256:6f62d78e2f89b4500b080fe3a81690850cd254227f27f75c3a0c491a1f351ba7"},
