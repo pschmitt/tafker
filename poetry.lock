@@ -25,7 +25,7 @@ python-versions = "*"
 
 [[package]]
 name = "astroid"
-version = "2.12.11"
+version = "2.12.12"
 description = "An abstract syntax tree for Python with inference support."
 category = "dev"
 optional = false
@@ -371,14 +371,14 @@ python-versions = ">=3.5"
 
 [[package]]
 name = "pylint"
-version = "2.15.4"
+version = "2.15.5"
 description = "python code static checker"
 category = "dev"
 optional = false
 python-versions = ">=3.7.2"
 
 [package.dependencies]
-astroid = ">=2.12.11,<=2.14.0-dev0"
+astroid = ">=2.12.12,<=2.14.0-dev0"
 colorama = {version = ">=0.4.5", markers = "sys_platform == \"win32\""}
 dill = ">=0.2"
 isort = ">=4.2.5,<6"
@@ -552,7 +552,7 @@ python-versions = ">=3.6,<4.0"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.9"
-content-hash = "58fe4e751e292f01c42e300fad6e4a54182981e078ecf32015472874900b500b"
+content-hash = "cd3df9c937e0b2b1f96c7f69620af3a7d979db6d8858c6faaf526df4f844ef55"
 
 [metadata.files]
 anyio = [
@@ -564,8 +564,8 @@ appnope = [
     {file = "appnope-0.1.2.tar.gz", hash = "sha256:dd83cd4b5b460958838f6eb3000c660b1f9caf2a5b1de4264e941512f603258a"},
 ]
 astroid = [
-    {file = "astroid-2.12.11-py3-none-any.whl", hash = "sha256:867a756bbf35b7bc07b35bfa6522acd01f91ad9919df675e8428072869792dce"},
-    {file = "astroid-2.12.11.tar.gz", hash = "sha256:2df4f9980c4511474687895cbfdb8558293c1a826d9118bb09233d7c2bff1c83"},
+    {file = "astroid-2.12.12-py3-none-any.whl", hash = "sha256:72702205200b2a638358369d90c222d74ebc376787af8fb2f7f2a86f7b5cc85f"},
+    {file = "astroid-2.12.12.tar.gz", hash = "sha256:1c00a14f5a3ed0339d38d2e2e5b74ea2591df5861c0936bb292b84ccf3a78d83"},
 ]
 asttokens = [
     {file = "asttokens-2.0.5-py2.py3-none-any.whl", hash = "sha256:0844691e88552595a6f4a4281a9f7f79b8dd45ca4ccea82e5e05b4bbdb76705c"},
@@ -756,8 +756,8 @@ pygments = [
     {file = "Pygments-2.10.0.tar.gz", hash = "sha256:f398865f7eb6874156579fdf36bc840a03cab64d1cde9e93d68f46a425ec52c6"},
 ]
 pylint = [
-    {file = "pylint-2.15.4-py3-none-any.whl", hash = "sha256:629cf1dbdfb6609d7e7a45815a8bb59300e34aa35783b5ac563acaca2c4022e9"},
-    {file = "pylint-2.15.4.tar.gz", hash = "sha256:5441e9294335d354b7bad57c1044e5bd7cce25c433475d76b440e53452fa5cb8"},
+    {file = "pylint-2.15.5-py3-none-any.whl", hash = "sha256:c2108037eb074334d9e874dc3c783752cc03d0796c88c9a9af282d0f161a1004"},
+    {file = "pylint-2.15.5.tar.gz", hash = "sha256:3b120505e5af1d06a5ad76b55d8660d44bf0f2fc3c59c2bdd94e39188ee3a4df"},
 ]
 pyoxidizer = [
     {file = "pyoxidizer-0.22.0-py3-none-macosx_10_9_x86_64.whl", hash = "sha256:a07166628b1c838855d2208daad1268ed430f13751a903966ed96db1713be3fd"},
