@@ -394,7 +394,7 @@ testutils = ["gitpython (>3)"]
 
 [[package]]
 name = "pyoxidizer"
-version = "0.22.0"
+version = "0.23.0"
 description = "Package self-contained Python applications"
 category = "dev"
 optional = false
@@ -552,7 +552,7 @@ python-versions = ">=3.6,<4.0"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.9"
-content-hash = "3be76c04ee2e7091f5221134a77436ce9854fedc035713c0211b2699216cbc1a"
+content-hash = "c423507a79ff76e179ab9a68452b5220d450c03ad1b82746819f9b479c034302"
 
 [metadata.files]
 anyio = [
@@ -738,12 +738,12 @@ pylint = [
     {file = "pylint-2.15.5.tar.gz", hash = "sha256:3b120505e5af1d06a5ad76b55d8660d44bf0f2fc3c59c2bdd94e39188ee3a4df"},
 ]
 pyoxidizer = [
-    {file = "pyoxidizer-0.22.0-py3-none-macosx_10_9_x86_64.whl", hash = "sha256:a07166628b1c838855d2208daad1268ed430f13751a903966ed96db1713be3fd"},
-    {file = "pyoxidizer-0.22.0-py3-none-macosx_11_0_arm64.whl", hash = "sha256:785f87f8084ab94cd47477cc8258cf126aaef0ca7e0e52bb1f4b666cffc388f8"},
-    {file = "pyoxidizer-0.22.0-py3-none-manylinux2010_x86_64.whl", hash = "sha256:6e1c5ad4ee1990d58ef9d09c3f950c11f921df8b30325a8c130cf1f3d2fa7a28"},
-    {file = "pyoxidizer-0.22.0-py3-none-manylinux2014_aarch64.whl", hash = "sha256:8681e0d638be6b14d5f47810364b63df585deb1483ed65f09597a6d3cb35f1dc"},
-    {file = "pyoxidizer-0.22.0-py3-none-win32.whl", hash = "sha256:de3b607ffc1eac72d0b7bbefb67bc5afd08cbfe04c2ad2e4b7fe58de695eea74"},
-    {file = "pyoxidizer-0.22.0-py3-none-win_amd64.whl", hash = "sha256:774813b480e7ca2c620bb44f29dab6bbec33215278cdcd64421462be6a4443df"},
+    {file = "pyoxidizer-0.23.0-py3-none-macosx_10_9_x86_64.whl", hash = "sha256:c5614d113d60013150b0c281a15bd72e53a0a4d76e3f583591a683bfbca585a3"},
+    {file = "pyoxidizer-0.23.0-py3-none-macosx_11_0_arm64.whl", hash = "sha256:1ab30cfebbdde6415886a5fc0480c6db9ca6e28520859405b02bf008ca871241"},
+    {file = "pyoxidizer-0.23.0-py3-none-manylinux2010_x86_64.whl", hash = "sha256:0c99ed8826f1c45431a405f1e4ef3897bb75e8b2c9a4b0eeda64733350b96a6b"},
+    {file = "pyoxidizer-0.23.0-py3-none-manylinux2014_aarch64.whl", hash = "sha256:3b8b403ea6033584525f5e6675652e7edd437e172c55a32ebf774ade2f691d01"},
+    {file = "pyoxidizer-0.23.0-py3-none-win32.whl", hash = "sha256:b918943e3789b6ff0bf39e66f2489207b126a34eb8e9351e4e858d5408b6c1f5"},
+    {file = "pyoxidizer-0.23.0-py3-none-win_amd64.whl", hash = "sha256:4d1114ebe39e5be06e545032303ba482aa829c46d97d8f9dea3a15a4e9472891"},
 ]
 python-xlib = [
     {file = "python-xlib-0.32.tar.gz", hash = "sha256:20e1382f8a98d8ed0facfa45415c46fd0c8eeb6f9996e58c22d3382a4ed6e37b"},
