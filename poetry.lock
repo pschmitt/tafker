@@ -610,14 +610,14 @@ files = [
 
 [[package]]
 name = "python-xlib"
-version = "0.32"
+version = "0.33"
 description = "Python X Library"
 category = "main"
 optional = false
 python-versions = "*"
 files = [
-    {file = "python-xlib-0.32.tar.gz", hash = "sha256:20e1382f8a98d8ed0facfa45415c46fd0c8eeb6f9996e58c22d3382a4ed6e37b"},
-    {file = "python_xlib-0.32-py2.py3-none-any.whl", hash = "sha256:522dc1ec9fef20a7968532766cdb84155e5ef428751754a9443837094092be46"},
+    {file = "python-xlib-0.33.tar.gz", hash = "sha256:55af7906a2c75ce6cb280a584776080602444f75815a7aff4d287bb2d7018b32"},
+    {file = "python_xlib-0.33-py2.py3-none-any.whl", hash = "sha256:c3534038d42e0df2f1392a1b30a15a4ff5fdc2b86cfa94f072bf11b10a164398"},
 ]
 
 [package.dependencies]
@@ -1018,4 +1018,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.9"
-content-hash = "cc5be8bb982cc79b1bba3a8a21718fc6b2b4364f8c721da839a3a322415a9cda"
+content-hash = "ec86054393a7455fd14fa1401146b4ac9752ecccec4c077de3e23a831e80c64a"
